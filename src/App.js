@@ -103,7 +103,7 @@ class App extends React.Component {
         )}
         {this.state.voted && <p>Thank you for your submission!</p>}
         <div className="footer">
-          <p style={{ fontSize: "0.7rem" }}>© 2020 <a href="https://wkoury.com">wkoury</a></p>
+          <p style={{ fontSize: "0.7rem" }}>© 2020 <a href="https://wkoury.com" rel="noopener noreferrer" target="_blank">wkoury</a></p>
         </div>
       </div>
     );
