@@ -41,8 +41,8 @@ class App extends React.Component {
     let denom = 0;
 
     snapshot.forEach(doc => {
-      sum += doc.data().weeks;
-      denom++;
+      sum += +doc.data().weeks;
+      denom += 1;
     });
 
     let average = sum / denom;
@@ -59,7 +59,7 @@ class App extends React.Component {
     this.setState({
       value: 8
     });
-    
+
     localStorage.setItem("voted", "yes");
   }
 
@@ -71,13 +71,17 @@ class App extends React.Component {
     }
 
     this.getVotes();
+    setInterval(() => this.getVotes(), 5000);
   }
 
   render() {
     return (
       <div className="App">
+        <div className="header">
+          <h1>How long will schools make it this fall before shutting down?</h1>
+        </div>
         <div className="average">
-          <h3>So far, people think that we will make it {this.state.average} weeks before schools get shutdown.</h3>
+          <h3>So far, people think that we will make it ~{this.state.average} weeks before schools get shutdown.</h3>
           <h4>Submit your own estimate:</h4>
         </div>
         {!this.state.voted && (
@@ -97,6 +101,10 @@ class App extends React.Component {
             <p>{this.state.value} weeks</p>
           </div>
         )}
+        {this.state.voted && <p>Thank you for your submission!</p>}
+        <div className="footer">
+          <p style={{ fontSize: "0.7rem" }}>© 2020 <a href="https://wkoury.com">wkoury</a></p>
+        </div>
       </div>
     );
   }
