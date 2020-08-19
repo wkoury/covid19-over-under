@@ -47,7 +47,7 @@ class App extends React.Component {
 
     let average = sum / denom;
     average = average.toString().substr(0,5);
-    this.setState({ average: average });
+    this.setState({ average: average, votes: denom });
   }
 
   handleClick = async event => {
@@ -85,6 +85,7 @@ class App extends React.Component {
         </div>
         <div className="average">
           <h3>So far, people think that we will make it ~{this.state.average} weeks before schools get shut down.</h3>
+          <h4>{this.state.votes} votes have been submitted so far.</h4>
         </div>
         {!this.state.voted && (
           <div className="input">
