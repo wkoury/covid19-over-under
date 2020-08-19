@@ -1,5 +1,5 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 import firebase from "firebase";
 require("dotenv").config();
 
@@ -66,7 +66,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log(localStorage.getItem("voted"));
     if(localStorage.getItem("voted") === "yes"){
       this.setState({ voted: true });
     }else{
@@ -74,7 +73,7 @@ class App extends React.Component {
     }
 
     this.getVotes();
-    setInterval(() => this.getVotes(), 5000);
+    setInterval(() => this.getVotes(), 10000);
   }
 
   render() {
