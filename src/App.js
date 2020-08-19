@@ -46,6 +46,7 @@ class App extends React.Component {
     });
 
     let average = sum / denom;
+    average = average.toString().substr(0,5);
     this.setState({ average: average });
   }
 
@@ -82,10 +83,10 @@ class App extends React.Component {
         </div>
         <div className="average">
           <h3>So far, people think that we will make it ~{this.state.average} weeks before schools get shutdown.</h3>
-          <h4>Submit your own estimate:</h4>
         </div>
         {!this.state.voted && (
           <div className="input">
+            <h4>Submit your own estimate:</h4>
             <input
               type="range"
               min={0}
