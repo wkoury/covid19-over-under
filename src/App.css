@@ -29,3 +29,10 @@ button {
   height: 30px;
   width: 80px;
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: #d3d3d3;
+    background: #1b1b1b;
+  }
+}
