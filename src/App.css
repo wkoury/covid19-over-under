@@ -9,6 +9,10 @@
   padding-bottom: 100px;
 }
 
+a, a:visited {
+  color: blue;
+}
+
 .footer {
   position: absolute;
   width: 100%;
