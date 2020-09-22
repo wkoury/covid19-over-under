@@ -1,4 +1,5 @@
 import React from "react";
+import Chart from "chart.js";
 import "./App.css";
 import firebase from "firebase";
 require("dotenv").config();
@@ -35,8 +36,10 @@ class App extends React.Component {
     let sum = 0;
     let denom = 0;
 
+    let database = [];
+
     snapshot.forEach(doc => {
-      console.log(doc.data().weeks);
+      database.push(doc.data().weeks);
       sum += +doc.data().weeks;
       denom += 1;
     });
@@ -44,10 +47,24 @@ class App extends React.Component {
     let average = sum / denom;
     average = average.toString().substr(0,5);
     this.setState({ average: average, votes: denom });
+
+    const ctx = document.getElementById("myChart");
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+        datasets: [{
+            label: '# of Votes',
+            data: database,
+            borderWidth: 1
+        }]
+    }  
+    });
   }
 
   componentDidMount(){
-    this.getVotes();
+    this.getVotes();    
   }
 
   render() {
@@ -58,8 +75,9 @@ class App extends React.Component {
           <h4>Thanks to everyone who voted!</h4>
         </div>
         <div className="average">
-          <h3>People thought that we would make it ~{this.state.average} weeks before schools got shut down.</h3>
+          <h3>On average, people thought that we would make it ~{this.state.average} weeks before schools got shut down.</h3>
           <h4>{this.state.votes} votes were submitted.</h4>
+          <canvas id="myChart" width="600" height="400"></canvas>
         </div>
         <div className="footer">
           <p style={{ fontSize: "0.7rem" }}>© 2020 <a href="https://wkoury.com" rel="noopener noreferrer" target="_blank">wkoury</a></p>
