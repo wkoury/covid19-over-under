@@ -18,19 +18,14 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 class App extends React.Component {
-  constructor(props) {
+  constructor(props){
     super(props);
-
+    
     this.state = {
-      value: 8
-    };
-  }
+      votes: "",
+      average: ""
+    }
 
-  handleChange = event => {
-    event.preventDefault();
-    this.setState({
-      value: event.target.value
-    });
   }
 
   getVotes = async () => {
@@ -41,6 +36,7 @@ class App extends React.Component {
     let denom = 0;
 
     snapshot.forEach(doc => {
+      console.log(doc.data().weeks);
       sum += +doc.data().weeks;
       denom += 1;
     });
@@ -50,61 +46,21 @@ class App extends React.Component {
     this.setState({ average: average, votes: denom });
   }
 
-  handleClick = async event => {
-    event.preventDefault();
-
-    await db.collection("votes").add({
-      weeks: this.state.value
-    });
-
-    this.setState({
-      value: 8
-    });
-
-    this.setState({ submitted: true, voted: true });
-    localStorage.setItem("voted", "yes");
-  }
-
-  componentDidMount() {
-    if(localStorage.getItem("voted") === "yes"){
-      this.setState({ voted: true });
-    }else{
-      this.setState({ voted: false });
-    }
-
+  componentDidMount(){
     this.getVotes();
-    setInterval(() => this.getVotes(), 10000);
   }
 
   render() {
     return (
       <div className="App">
         <div className="header">
-          <h1>How long will schools make it this fall before shutting down?</h1>
+          <h1>How long did people think schools would make it this fall before shutting down?</h1>
+          <h4>Thanks to everyone who voted!</h4>
         </div>
         <div className="average">
-          <h3>So far, people think that we will make it ~{this.state.average} weeks before schools get shut down.</h3>
-          <h4>{this.state.votes} votes have been submitted so far.</h4>
+          <h3>People thought that we would make it ~{this.state.average} weeks before schools got shut down.</h3>
+          <h4>{this.state.votes} votes were submitted.</h4>
         </div>
-        {!this.state.voted && (
-          <div className="input">
-            <h4>Submit your own estimate:</h4>
-            <input
-              type="range"
-              min={0}
-              max={16}
-              value={this.state.value}
-              onChange={e => this.handleChange(e)}
-              />
-            <button
-              onClick={e => this.handleClick(e)}
-            >
-              Submit
-            </button>
-            <p>{this.state.value} weeks</p>
-          </div>
-        )}
-        {this.state.submitted && <p>Thank you for your submission!</p>}
         <div className="footer">
           <p style={{ fontSize: "0.7rem" }}>© 2020 <a href="https://wkoury.com" rel="noopener noreferrer" target="_blank">wkoury</a></p>
         </div>
