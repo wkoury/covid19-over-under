@@ -80,7 +80,8 @@ class App extends React.Component {
           <canvas id="myChart" width="600" height="400"></canvas>
         </div>
         <div className="footer">
-          <p style={{ fontSize: "0.7rem" }}>© 2020 <a href="https://wkoury.com" rel="noopener noreferrer" target="_blank">wkoury</a></p>
+          <p>© 2020 <a href="https://wkoury.com" rel="noopener noreferrer" target="_blank">wkoury</a></p>
+          <a href="https://github.com/wkoury/covid19-over-under" rel="noopener noreferrer" target="_blank">GitHub</a>
         </div>
       </div>
     );
